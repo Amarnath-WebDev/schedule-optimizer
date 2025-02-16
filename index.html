@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Content Schedule Optimizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <i class="fas fa-clock"></i>
+                <span>Schedule Optimizer</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="#analytics">Analytics</a>
+                <a href="#dashboard">Dashboard</a>
+                <div class="auth-links" id="authLinks">
+                    <a href="#auth" class="login-btn" onclick="toggleAuth('login')">Login</a>
+                    <a href="#auth" class="signup-btn" onclick="toggleAuth('signup')">Sign Up</a>
+                </div>
+                <div class="user-menu" id="userMenu" style="display: none;">
+                    <span class="username" id="userUsername"></span>
+                    <button class="logout-btn" onclick="handleLogout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="section">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Optimize Your Content Schedule</h1>
+                <p>Maximize your YouTube engagement with AI-powered scheduling and analytics</p>
+                <div class="cta-buttons">
+                    <a href="#analytics" class="cta-button cta-primary">
+                        <i class="fas fa-chart-line"></i>
+                        Get Started
+                    </a>
+                    <a href="#contact" class="cta-button cta-secondary">
+                        <i class="fas fa-envelope"></i>
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://s1.1zoom.me/prev/582/Texture_581784_600x400.jpg" alt="Dashboard Preview">
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Section -->
+    <section id="analytics" class="section">
+        <div class="dashboard">
+            <div class="stats-card">
+                <h3>
+                    <i class="fas fa-chart-line"></i>
+                    Channel Analytics
+                </h3>
+                <div class="input-group">
+                    <input type="text" 
+                           id="channelUrl" 
+                           placeholder="Enter your YouTube Channel URL"
+                           autocomplete="off">
+                    <button onclick="analyzeChannel()">
+                        <i class="fas fa-analytics"></i>
+                        Analyze Channel
+                    </button>
+                </div>
+                <div class="analytics-grid">
+                    <!-- Best Time to Post -->
+                    <div class="analytics-card">
+                        <h4><i class="fas fa-star"></i> Best Time to Post</h4>
+                        <div id="bestTimeDisplay" class="stat-value">-</div>
+                    </div>
+
+                    <!-- Peak Viewer Hours -->
+                    <div class="analytics-card">
+                        <h4><i class="fas fa-users"></i> Peak Viewer Hours</h4>
+                        <div id="peakHoursDisplay" class="stat-value">-</div>
+                    </div>
+
+                    <!-- Engagement Rate -->
+                    <div class="analytics-card">
+                        <h4><i class="fas fa-heart"></i> Best Days</h4>
+                        <div id="engagementDisplay" class="stat-value">-</div>
+                    </div>
+
+                    <!-- Timezone Analysis -->
+                    <div class="analytics-card">
+                        <h4><i class="fas fa-globe"></i> Timezone Analysis</h4>
+                        <div id="timezoneDisplay" class="stat-value">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="section">
+        <div class="dashboard-container">
+            <div class="dashboard-card">
+                <div id="scheduleCalendar">
+                    <div class="schedule-header">
+                        <h3>Video Schedule</h3>
+                        <button onclick="showScheduleForm()" class="add-video-btn">
+                            <i class="fas fa-plus"></i> Schedule New Video
+                        </button>
+                    </div>
+                    <div class="scheduled-videos">
+                        <!-- Scheduled videos will appear here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3><i class="fas fa-chart-pie"></i> Performance Metrics</h3>
+                <div class="metrics-grid">
+                    <!-- Metrics content -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="contact-container">
+            <h2>Get in Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>Nabinagar</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>your.email@example.com</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+1234567890</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input 
+                                type="text" 
+                                name="name" 
+                                placeholder="Your Name" 
+                                required
+                                minlength="2"
+                                maxlength="50"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <input 
+                                type="email" 
+                                name="email" 
+                                placeholder="Your Email" 
+                                required
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <textarea 
+                                name="message" 
+                                placeholder="Your Message" 
+                                required
+                                minlength="10"
+                                maxlength="500"
+                            ></textarea>
+                        </div>
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auth Section -->
+    <section id="auth" class="section">
+        <div class="auth-container">
+            <div class="auth-box" id="signupBox">
+                <h2>Create Account</h2>
+                <form id="signupForm">
+                    <div class="form-group">
+                        <input type="text" name="username" placeholder="Username" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit">Sign Up</button>
+                </form>
+                <p>Already have an account? <a href="#" onclick="toggleAuth('login')">Login</a></p>
+            </div>
+
+            <div class="auth-box" id="loginBox" style="display: none;">
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+                <p>Don't have an account? <a href="#" onclick="toggleAuth('signup')">Sign Up</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>Developed by Amar Kumar</h3>
+                <p>Nabinagar</p>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2024 Content Schedule Optimizer. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
